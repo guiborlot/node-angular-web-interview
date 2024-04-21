@@ -1,0 +1,43 @@
+<div class="container" style="display: flex; flex-direction: column; align-items: center; height: 100%">
+	<mat-toolbar style="display: flex; justify-content: space-between; width: 100%">
+		<span>Person Registration</span>
+		<a mat-button color="primary" routerLink="new-person">Add Person</a>
+	</mat-toolbar>
+	<mat-card *ngFor="let person of persons" style="margin: 16px; width: 500px">
+		<mat-card-header style="justify-content: center">
+			<img mat-card-image src="https://cdn.icon-icons.com/icons2/2643/PNG/512/man_boy_people_avatar_user_person_black_skin_tone_icon_159355.png" style="width: 100px; height: 100px;" alt="">
+		</mat-card-header>
+		<mat-card-content>
+			<mat-list>
+				<mat-list-item>
+					<h2>{{ person.name }}</h2>
+				</mat-list-item>
+				<mat-list-item>
+					<span>E-mail:</span>
+					<span>{{ person.email }}</span>
+				</mat-list-item>
+				<mat-list-item>
+					<span>Telefone:</span>
+					<span>{{ person.phone }}</span>
+				</mat-list-item>
+				<mat-list-item>
+					<span>Profissão:</span>
+					<span>{{getProfessionName(person.id || '') || 'no profession registered'}}</span>
+				</mat-list-item>
+			</mat-list>
+			<mat-card-actions style="justify-content: center">
+				<a mat-raised-button routerLink="{{ person.id }}">Read more</a>
+				<button mat-raised-button (click)="removeDialog(person.id || '', removeDialogRef)">Remove</button>
+			</mat-card-actions>
+		</mat-card-content>
+	</mat-card>
+</div>
+
+<ng-template #removeDialogRef>
+	<h2 mat-dialog-title>Remove</h2>
+	<mat-dialog-content>Do you really want to remove this person?</mat-dialog-content>
+	<mat-dialog-actions>
+		<button mat-button mat-dialog-close (click)="remove()">Yes</button>
+		<button mat-button mat-dialog-close>No</button>
+	</mat-dialog-actions>
+</ng-template>
