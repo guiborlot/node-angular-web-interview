@@ -14,33 +14,21 @@
 										 placeholder="Full name"
 										 formControlName="name"
 										 required>
-							<div *ngIf="name?.invalid && formDir.submitted" class="validation-error">
-								<p>Name is invalid</p>
-							</div>
 						</mat-form-field>
 
 						<mat-form-field appearance="outline" style="width: 100%">
 							<mat-label>E-mail</mat-label>
 							<input matInput formControlName="email" type="email" required>
-							<div *ngIf="email?.invalid && formDir.submitted" class="validation-error">
-								<p>Email is invalid</p>
-							</div>
 						</mat-form-field>
 
 						<mat-form-field appearance="outline" style="width: 100%">
 							<mat-label>Phone</mat-label>
-							<input matInput formControlName="phone" type="tel" required placeholder="+99 (99) 99999-9999">
-							<div *ngIf="phone?.invalid && formDir.submitted" class="validation-error">
-								<p>Phone is invalid</p>
-							</div>
+							<input matInput formControlName="phone" type="tel" required placeholder="+99 (99) 99999-9999" mask="+00 (00) 00000-0000" [dropSpecialCharacters]="false">
 						</mat-form-field>
 
 						<mat-form-field appearance="outline" style="width: 100%">
 							<mat-label>Profession</mat-label>
 							<input matInput formControlName="profession" type="text" required>
-							<div *ngIf="professionName?.invalid && formDir.submitted" class="validation-error">
-								<p>Profession is invalid</p>
-							</div>
 						</mat-form-field>
 
 						<button mat-raised-button type="submit" color="primary" style="width: 100%">Save</button>

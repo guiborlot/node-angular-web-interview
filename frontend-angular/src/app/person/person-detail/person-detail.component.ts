@@ -1,12 +1,12 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CreatedPersonResponse, Person} from "../model/person.model";
-import {Observable, of, switchMap, tap} from "rxjs";
+import {of, switchMap, tap} from "rxjs";
 import {PersonService} from "../person.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProfessionService} from "../profession.service";
 import {Profession} from "../model/profession.model";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
 	selector: 'app-person-detail',
@@ -62,8 +62,14 @@ export class PersonDetailComponent implements OnInit {
 		this.personForm = new FormGroup({
 			id: new FormControl(this.person?.id || ''),
 			name: new FormControl(this.person?.name || '', [Validators.required]),
-			email: new FormControl(this.person?.email || '', [Validators.required]),
-			phone: new FormControl(this.person?.phone || '', [Validators.required]),
+			email: new FormControl(this.person?.email || '', [
+				Validators.required,
+				Validators.pattern(this.getEmailRegex())
+			]),
+			phone: new FormControl(this.person?.phone || '', [
+				Validators.required,
+				Validators.pattern(this.getPhoneRegex())
+			]),
 			profession: new FormControl(this.profession?.name || '', [Validators.required]),
 		})
 	}
@@ -143,7 +149,16 @@ export class PersonDetailComponent implements OnInit {
 	}
 
 	saveDialog(template: TemplateRef<any>) {
-		this.dialog.open(template)
+		if(this.personForm.valid) {
+			this.dialog.open(template)
+		}
 	}
 
+	private getPhoneRegex(): RegExp {
+		return /\+\d{2}\s\(\d{2}\)\s\d{4,5}-?\d{4}/g
+	}
+
+	private getEmailRegex(): RegExp {
+		return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	}
 }

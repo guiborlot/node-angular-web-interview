@@ -15,6 +15,7 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatToolbar} from "@angular/material/toolbar";
+import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -39,10 +40,13 @@ import {MatToolbar} from "@angular/material/toolbar";
 		MatDialogActions,
 		MatDialogClose,
 		MatDialogTitle,
-		MatToolbar
+		MatToolbar,
+		NgxMaskDirective,
+		NgxMaskPipe
 	],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+		provideNgxMask()
   ],
   exports: [
     MatCardModule,
